@@ -1,0 +1,8 @@
+/* page/home/home.wxss */
+.text{
+  color: red;
+  display: block;
+}
+.btn{
+  font-size: 10px;
+}
