@@ -1,66 +1,71 @@
 // page/home/home.js
+
+//getApp()可以获取App()产生的实例对象
+const app=getApp();
+const name=app.globalData.name;
+const age=app.globalData.age;
 Page({
-
-  /**
-   * 页面的初始数据
-   */
+  /* 1.页面所需数据的定义 */
   data: {
-
+    name:'wyx',
+    age:18,
+    movices:[
+      {
+        name:'aaa',
+        age:21,
+        height:165
+      },
+      {
+        name:'bbb',
+        age:21,
+        height:165
+      },
+      {
+        name:'ccc',
+        age:21,
+        height:165
+      }, {
+        name:'ddd',
+        age:21,
+        height:165
+      }
+    ],
+    count:0,
+    list:[]
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+  /* 2.监听wxml中相关的事件 */
+  handleBtnClick(){
+    this.setData({
+      count:this.data.count+1
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  handleSubClick(){
+    this.setData({
+      count:this.data.count-1
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  getuserinfo(event){
+    console.log(event)
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+  getScollTop(){
+    scrollTo(0,500)
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
+  /* 3。周期函数的执行 */
+  onLoad(){
+    wx.request({
+      url: 'http://123.207.32.32:8000/recommend',
+      success:(res)=>{
+        console.log(res)
+        const data=res.data.data.list;
+        this.setData({
+          list:data
+        })
+      }
+    })
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  /* 4.监听其他事件 */
+  onPageScroll(obj){
+    console.log(obj)
   }
+
 })
